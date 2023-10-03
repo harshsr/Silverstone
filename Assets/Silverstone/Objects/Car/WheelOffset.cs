@@ -30,9 +30,16 @@ public class WheelOffset : MonoBehaviour
     {
         if (Car)
         {
-            UpVector = Car.GetComponent<CarMovement>().AverageNormal;
+            if (Car.GetComponent<CarMovement>().IsGrounded())
+            {
+                UpVector = Car.GetComponent<CarMovement>().AverageNormal;
+            }
+            else
+            {
+                UpVector = Car.transform.up;
+            }
             transform.position = Car.transform.position + Offset;
-            transform.rotation = Quaternion.FromToRotation(Vector3.up, UpVector);
+            transform.rotation = Quaternion.Lerp(transform.rotation,Quaternion.FromToRotation(transform.up, UpVector) * transform.rotation, 0.1f);
             transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, Car.transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
         }
     }

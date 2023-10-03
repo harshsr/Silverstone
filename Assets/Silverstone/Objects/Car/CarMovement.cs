@@ -20,10 +20,14 @@ public class CarMovement : MonoBehaviour
     [SerializeField] private float ForwardAcceleration = 10f;
     [SerializeField] private float Deceleration = 5f;
     [SerializeField] private float SteerTorque = 10f;
-    
+    [SerializeField] private float DriftTorque = 25f;
+    [SerializeField] private float DriftDrag = 1f;
+    [SerializeField] private float AntiDrifDrag = 10f;
+
     [Header("Input")]
     [SerializeField] InputAction LongitudinalInput;
     [SerializeField] InputAction LateralInput;
+    [SerializeField] InputAction DriftInput;
     
     
     // Spring Suspension
@@ -39,53 +43,89 @@ public class CarMovement : MonoBehaviour
     
     private Rigidbody CarRigidbody;
     public Vector3 AverageNormal;
+    private float InternalDrag = 0f;
+    private float InternalSteerTorque = 0f;
+    bool bDrift = false;
+    
+    
+    // Ground Check
+    float MaxDistance = 1f;
     // Start is called before the first frame update
     void Start()
     {
+        
         LateralInput.Enable();
         LongitudinalInput.Enable();
+        DriftInput.Enable();
         CarRigidbody = GetComponent<Rigidbody>();
         SpringDeflectionFrontLeft = 0f;
         SpringDeflectionFrontRight = 0f;
         SpringDeflectionRearLeft = 0f;
         SpringDeflectionRearRight = 0f;
         AverageNormal = Vector3.up;
+        MaxDistance = RestLength + 0.25f;
+        InternalDrag = AntiDrifDrag;
+        InternalSteerTorque = SteerTorque;
     }
     
     // Update is called once per frame
     void Update()
     {
         PerformSuspensionChecks();
-        //Debug.Log(SpringDeflectionFrontLeft);
-        
-        AverageNormal = (FrontLeftHit.normal + FrontRightHit.normal + RearLeftHit.normal + RearRightHit.normal) / 4f;
-        
+
+        if (DriftInput.ReadValue<float>()>0f)
+        {
+            bDrift = true;
+        }
+        else
+        {
+            bDrift = false;
+        }
+        //Debug.Log(bDrift);
     }
-    
+
     private void FixedUpdate()
     {
         ApplySuspensionForces();
-        
+        AverageNormal = (FrontLeftHit.normal + FrontRightHit.normal + RearLeftHit.normal + RearRightHit.normal) / 4f;
+
         // Apply Input
-        Vector3 ProjectedForward = Vector3.ProjectOnPlane(transform.forward, Vector3.up);
-        if (LongitudinalInput.ReadValue<float>() > 0f)
+        if (!IsFlipped())
         {
-            CarRigidbody.AddForceAtPosition(ForwardAcceleration * ProjectedForward, AccelerationPoint.transform.position, ForceMode.Acceleration);
+            ApplyMovementForces();
         }
-        else if (LongitudinalInput.ReadValue<float>() < 0f)
-        {
-            CarRigidbody.AddForceAtPosition(-Deceleration * ProjectedForward, BreakingPoint.transform.position, ForceMode.Acceleration);
-        }
+        AntiDriftDrag();
+    }
+
+    private void ApplyMovementForces()
+    {
+        float LongitudinalInputValue = LongitudinalInput.ReadValue<float>();
         
-        if (LateralInput.ReadValue<float>() > 0f)
+        Vector3 ProjectedForward = Vector3.ProjectOnPlane(transform.forward, AverageNormal);
+        if (LongitudinalInputValue > 0f)
         {
-            CarRigidbody.AddTorque(transform.up * SteerTorque, ForceMode.Acceleration);
+            CarRigidbody.AddForceAtPosition(ForwardAcceleration * ProjectedForward, AccelerationPoint.transform.position,
+                ForceMode.Acceleration);
         }
-        else if (LateralInput.ReadValue<float>() < 0f)
+        else if (LongitudinalInputValue < 0f)
         {
-            CarRigidbody.AddTorque(-transform.up * SteerTorque, ForceMode.Acceleration);
-        }
+            CarRigidbody.AddForceAtPosition(-Deceleration * ProjectedForward, BreakingPoint.transform.position,
+                ForceMode.Acceleration);
+        } 
         
+        InternalSteerTorque = bDrift ? DriftTorque : SteerTorque;
+        if (IsGrounded())
+        {
+            float SpeedFactor = Mathf.Clamp01(CarRigidbody.velocity.magnitude / 10f);
+            if (LateralInput.ReadValue<float>() > 0f)
+            {
+                CarRigidbody.AddTorque(transform.up * InternalSteerTorque * Mathf.Sign(LongitudinalInputValue) * SpeedFactor, ForceMode.Acceleration);
+            }
+            else if (LateralInput.ReadValue<float>() < 0f)
+            {
+                CarRigidbody.AddTorque(-transform.up * InternalSteerTorque  * Mathf.Sign(LongitudinalInputValue) * SpeedFactor, ForceMode.Acceleration);
+            }
+        }
     }
 
     void PerformSuspensionChecks()
@@ -110,15 +150,33 @@ public class CarMovement : MonoBehaviour
         if (Physics.Raycast(Ray, out Hit, RestLength, LayerMask.GetMask("Ground")))
         {
             SpringDeflection = (RestLength - Hit.distance) / RestLength;
-            //Debug.Log(Hit.distance);
+            //Debug.Log(SpringDeflection);
         }
         else
         {
+            Hit.normal = Vector3.up;
             SpringDeflection = 0f;
         }
         Debug.DrawRay(Ray.origin, Ray.direction * RestLength, Color.red);
         
         return SpringDeflection;
-        
+    }
+    
+    void AntiDriftDrag()
+    { 
+        InternalDrag = bDrift ? DriftDrag : AntiDrifDrag;
+       Vector3 ProjectedVelocity = Vector3.ProjectOnPlane(CarRigidbody.velocity, AverageNormal);
+       Vector3 SideVelocity = Vector3.Dot(transform.right, ProjectedVelocity) * transform.right;
+       CarRigidbody.AddForce(-SideVelocity * InternalDrag, ForceMode.Acceleration);
+    }
+    
+    public bool IsGrounded()
+    {
+        return Physics.Raycast(transform.position, -transform.up, MaxDistance, LayerMask.GetMask("Ground"));
+    }
+    
+    public bool IsFlipped()
+    {
+        return Physics.Raycast(transform.position, transform.up, MaxDistance * 2, LayerMask.GetMask("Ground"));
     }
 }
