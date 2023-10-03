@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class CarMovement : MonoBehaviour
+public class CarMovement : MonoBehaviour, ICarMovement
 {
     [Header("Suspension Config")]
     [SerializeField] GameObject SuspensionFrontLeft;
@@ -23,6 +23,11 @@ public class CarMovement : MonoBehaviour
     [SerializeField] private float DriftTorque = 25f;
     [SerializeField] private float DriftDrag = 1f;
     [SerializeField] private float AntiDrifDrag = 10f;
+    
+    [Header("Powerup Config")]
+    [SerializeField] private float DashForce = 25f;
+    [SerializeField] private float SpinTorque = 100f;
+    [SerializeField] private float SpeedBoostForce = 100f;
 
     [Header("Input")]
     [SerializeField] InputAction LongitudinalInput;
@@ -119,11 +124,11 @@ public class CarMovement : MonoBehaviour
             float SpeedFactor = Mathf.Clamp01(CarRigidbody.velocity.magnitude / 10f);
             if (LateralInput.ReadValue<float>() > 0f)
             {
-                CarRigidbody.AddTorque(transform.up * InternalSteerTorque * Mathf.Sign(LongitudinalInputValue) * SpeedFactor, ForceMode.Acceleration);
+                CarRigidbody.AddTorque(transform.up * (InternalSteerTorque * Mathf.Sign(LongitudinalInputValue) * SpeedFactor), ForceMode.Acceleration);
             }
             else if (LateralInput.ReadValue<float>() < 0f)
             {
-                CarRigidbody.AddTorque(-transform.up * InternalSteerTorque  * Mathf.Sign(LongitudinalInputValue) * SpeedFactor, ForceMode.Acceleration);
+                CarRigidbody.AddTorque(-transform.up * (InternalSteerTorque * Mathf.Sign(LongitudinalInputValue) * SpeedFactor), ForceMode.Acceleration);
             }
         }
     }
@@ -157,7 +162,7 @@ public class CarMovement : MonoBehaviour
             Hit.normal = Vector3.up;
             SpringDeflection = 0f;
         }
-        Debug.DrawRay(Ray.origin, Ray.direction * RestLength, Color.red);
+        //Debug.DrawRay(Ray.origin, Ray.direction * RestLength, Color.red);
         
         return SpringDeflection;
     }
@@ -179,4 +184,20 @@ public class CarMovement : MonoBehaviour
     {
         return Physics.Raycast(transform.position, transform.up, MaxDistance * 2, LayerMask.GetMask("Ground"));
     }
+    
+    public void Dash()
+    {
+        CarRigidbody.AddForce(transform.forward * DashForce, ForceMode.Impulse);
+    }
+
+    public void Spin()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void SpeedBoost()
+    {
+        throw new System.NotImplementedException();
+    }
+    
 }

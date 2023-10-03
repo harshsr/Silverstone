@@ -170,7 +170,7 @@ GameObject:
   - component: {fileID: 520179436399778058}
   m_Layer: 0
   m_Name: BodyMesh_Lada
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -407,9 +407,10 @@ GameObject:
   - component: {fileID: 1786751398358751020}
   - component: {fileID: 8567382809542075007}
   - component: {fileID: 4540139700624163771}
+  - component: {fileID: 2673989528103675399}
   m_Layer: 0
   m_Name: PhysicsCube
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -533,7 +534,9 @@ MonoBehaviour:
   ForwardAcceleration: 75
   Deceleration: 50
   SteerTorque: 10
-  DriftDrag: 10
+  DriftTorque: 25
+  DriftDrag: 1
+  AntiDrifDrag: 10
   LongitudinalInput:
     m_Name: Longitudinal Input
     m_Type: 0
@@ -552,7 +555,7 @@ MonoBehaviour:
       m_Flags: 4
     - m_Name: negative
       m_Id: 5d0f81a8-9bf9-45dc-8c43-2684b4d38f2f
-      m_Path: <Keyboard>/s
+      m_Path: <Keyboard>/downArrow
       m_Interactions: 
       m_Processors: 
       m_Groups: 
@@ -560,7 +563,7 @@ MonoBehaviour:
       m_Flags: 8
     - m_Name: positive
       m_Id: bdcdd299-b582-4d63-a6c8-dab230996642
-      m_Path: <Keyboard>/w
+      m_Path: <Keyboard>/upArrow
       m_Interactions: 
       m_Processors: 
       m_Groups: 
@@ -585,7 +588,7 @@ MonoBehaviour:
       m_Flags: 4
     - m_Name: negative
       m_Id: 3d54e6d5-c2f7-4f07-b57b-ec563357bc87
-      m_Path: <Keyboard>/a
+      m_Path: <Keyboard>/leftArrow
       m_Interactions: 
       m_Processors: 
       m_Groups: 
@@ -593,7 +596,7 @@ MonoBehaviour:
       m_Flags: 8
     - m_Name: positive
       m_Id: c35db006-05d6-4812-880d-ac249f1318df
-      m_Path: <Keyboard>/d
+      m_Path: <Keyboard>/rightArrow
       m_Interactions: 
       m_Processors: 
       m_Groups: 
@@ -608,16 +611,44 @@ MonoBehaviour:
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: 4fed5475-37c3-46b7-9e5d-08c237e6970d
+    - m_Name: 1D Axis
+      m_Id: de70c95b-34c6-4515-97bd-c758073541ef
+      m_Path: 1DAxis
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Drift Input
+      m_Flags: 4
+    - m_Name: negative
+      m_Id: 11f9198b-4926-4bb4-8c1a-6aa46b8d01a4
+      m_Path: 
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Drift Input
+      m_Flags: 8
+    - m_Name: positive
+      m_Id: b9270906-1ec0-41a0-861c-4ad3f2c679dc
       m_Path: <Keyboard>/space
       m_Interactions: 
       m_Processors: 
       m_Groups: 
       m_Action: Drift Input
-      m_Flags: 0
+      m_Flags: 8
     m_Flags: 0
   AverageNormal: {x: 0, y: 0, z: 0}
+--- !u!114 &2673989528103675399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4588409350732839714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83bcda706a24157438fce0e9b218078e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5134617667726804644
 GameObject:
   m_ObjectHideFlags: 0
@@ -711,7 +742,7 @@ PrefabInstance:
     - target: {fileID: 2009666013005732659, guid: 884ecb9d79e1ecd48b60aec9b5b05379,
         type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 7023721319820525005, guid: 884ecb9d79e1ecd48b60aec9b5b05379,
         type: 3}
