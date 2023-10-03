@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class CarMovement : MonoBehaviour
 {
@@ -12,6 +13,18 @@ public class CarMovement : MonoBehaviour
     [SerializeField] private float SpringCoefficient = 10f;
     [SerializeField] private float DampingCoefficient = 1f;
     [SerializeField] private float RestLength = 0.25f;
+    
+    [Header("Movement Config")]
+    [SerializeField] GameObject AccelerationPoint;
+    [SerializeField] GameObject BreakingPoint;
+    [SerializeField] private float ForwardAcceleration = 10f;
+    [SerializeField] private float Deceleration = 5f;
+    [SerializeField] private float SteerTorque = 10f;
+    
+    [Header("Input")]
+    [SerializeField] InputAction LongitudinalInput;
+    [SerializeField] InputAction LateralInput;
+    
     
     // Spring Suspension
     private float SpringDeflectionFrontLeft;
@@ -25,14 +38,18 @@ public class CarMovement : MonoBehaviour
     private RaycastHit RearRightHit;
     
     private Rigidbody CarRigidbody;
+    public Vector3 AverageNormal;
     // Start is called before the first frame update
     void Start()
     {
+        LateralInput.Enable();
+        LongitudinalInput.Enable();
         CarRigidbody = GetComponent<Rigidbody>();
         SpringDeflectionFrontLeft = 0f;
         SpringDeflectionFrontRight = 0f;
         SpringDeflectionRearLeft = 0f;
         SpringDeflectionRearRight = 0f;
+        AverageNormal = Vector3.up;
     }
     
     // Update is called once per frame
@@ -40,11 +57,35 @@ public class CarMovement : MonoBehaviour
     {
         PerformSuspensionChecks();
         //Debug.Log(SpringDeflectionFrontLeft);
+        
+        AverageNormal = (FrontLeftHit.normal + FrontRightHit.normal + RearLeftHit.normal + RearRightHit.normal) / 4f;
+        
     }
     
     private void FixedUpdate()
     {
         ApplySuspensionForces();
+        
+        // Apply Input
+        Vector3 ProjectedForward = Vector3.ProjectOnPlane(transform.forward, Vector3.up);
+        if (LongitudinalInput.ReadValue<float>() > 0f)
+        {
+            CarRigidbody.AddForceAtPosition(ForwardAcceleration * ProjectedForward, AccelerationPoint.transform.position, ForceMode.Acceleration);
+        }
+        else if (LongitudinalInput.ReadValue<float>() < 0f)
+        {
+            CarRigidbody.AddForceAtPosition(-Deceleration * ProjectedForward, BreakingPoint.transform.position, ForceMode.Acceleration);
+        }
+        
+        if (LateralInput.ReadValue<float>() > 0f)
+        {
+            CarRigidbody.AddTorque(transform.up * SteerTorque, ForceMode.Acceleration);
+        }
+        else if (LateralInput.ReadValue<float>() < 0f)
+        {
+            CarRigidbody.AddTorque(-transform.up * SteerTorque, ForceMode.Acceleration);
+        }
+        
     }
 
     void PerformSuspensionChecks()
