@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,6 +24,8 @@ public class CarMovement : MonoBehaviour, ICarMovement
     [SerializeField] private float DriftTorque = 25f;
     [SerializeField] private float DriftDrag = 1f;
     [SerializeField] private float AntiDrifDrag = 10f;
+    [SerializeField] private float GroundDrag = 2.5f;
+    [SerializeField] private float AirDrag = 0f;
     
     [Header("Powerup Config")]
     [SerializeField] private float DashForce = 25f;
@@ -54,7 +57,8 @@ public class CarMovement : MonoBehaviour, ICarMovement
     
     
     // Ground Check
-    float MaxDistance = 1f;
+    float GroundCheckDistance = 1f;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -68,7 +72,7 @@ public class CarMovement : MonoBehaviour, ICarMovement
         SpringDeflectionRearLeft = 0f;
         SpringDeflectionRearRight = 0f;
         AverageNormal = Vector3.up;
-        MaxDistance = RestLength + 0.25f;
+        GroundCheckDistance = RestLength + 0.5f;
         InternalDrag = AntiDrifDrag;
         InternalSteerTorque = SteerTorque;
     }
@@ -86,6 +90,9 @@ public class CarMovement : MonoBehaviour, ICarMovement
         {
             bDrift = false;
         }
+
+
+        
         //Debug.Log(bDrift);
     }
 
@@ -100,23 +107,30 @@ public class CarMovement : MonoBehaviour, ICarMovement
             ApplyMovementForces();
         }
         AntiDriftDrag();
+        ManageDrag();
     }
 
     private void ApplyMovementForces()
     {
+        
         float LongitudinalInputValue = LongitudinalInput.ReadValue<float>();
         
         Vector3 ProjectedForward = Vector3.ProjectOnPlane(transform.forward, AverageNormal);
-        if (LongitudinalInputValue > 0f)
+
+        if (IsGrounded())
         {
-            CarRigidbody.AddForceAtPosition(ForwardAcceleration * ProjectedForward, AccelerationPoint.transform.position,
-                ForceMode.Acceleration);
+            if (LongitudinalInputValue > 0f)
+            {
+                CarRigidbody.AddForceAtPosition(ForwardAcceleration * ProjectedForward, AccelerationPoint.transform.position,
+                    ForceMode.Acceleration);
+            }
+            else if (LongitudinalInputValue < 0f)
+            {
+                CarRigidbody.AddForceAtPosition(-Deceleration * ProjectedForward, BreakingPoint.transform.position,
+                    ForceMode.Acceleration);
+            }  
         }
-        else if (LongitudinalInputValue < 0f)
-        {
-            CarRigidbody.AddForceAtPosition(-Deceleration * ProjectedForward, BreakingPoint.transform.position,
-                ForceMode.Acceleration);
-        } 
+  
         
         InternalSteerTorque = bDrift ? DriftTorque : SteerTorque;
         if (IsGrounded())
@@ -174,15 +188,27 @@ public class CarMovement : MonoBehaviour, ICarMovement
        Vector3 SideVelocity = Vector3.Dot(transform.right, ProjectedVelocity) * transform.right;
        CarRigidbody.AddForce(-SideVelocity * InternalDrag, ForceMode.Acceleration);
     }
+
+    void ManageDrag()
+    {
+        if (IsGrounded())
+        {
+            CarRigidbody.drag = GroundDrag;
+        }
+        else
+        {
+            CarRigidbody.drag = AirDrag;
+        }
+    }
     
     public bool IsGrounded()
     {
-        return Physics.Raycast(transform.position, -transform.up, MaxDistance, LayerMask.GetMask("Ground"));
+        return Physics.Raycast(transform.position, -transform.up, GroundCheckDistance, LayerMask.GetMask("Ground"));
     }
     
     public bool IsFlipped()
     {
-        return Physics.Raycast(transform.position, transform.up, MaxDistance * 2, LayerMask.GetMask("Ground"));
+        return Physics.Raycast(transform.position, transform.up, GroundCheckDistance * 2, LayerMask.GetMask("Ground"));
     }
     
     public void Dash()
@@ -199,5 +225,6 @@ public class CarMovement : MonoBehaviour, ICarMovement
     {
         throw new System.NotImplementedException();
     }
-    
+
+
 }
