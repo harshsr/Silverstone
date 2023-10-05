@@ -31,17 +31,17 @@ public class CameraBehaviour : MonoBehaviour
         else if (CarOne && !CarTwo)
         {
             Distance = 0f;
-            Distance += 25f;
+            Distance += 20f;
             Distance = Mathf.Clamp(Distance, 10f, 200f);
-            CameraPosition = CarOne.transform.position + Vector3.up * Distance + Vector3.forward * -Distance;
+            CameraPosition = CarOne.transform.position + Vector3.up * Distance + Vector3.forward * -Distance*1.5f;
             LookAtPosition = CarOne.transform.position;
         }
         else if (CarTwo && !CarOne)
         {
             Distance = 0f;
-            Distance += 25f;
+            Distance += 20f;
             Distance = Mathf.Clamp(Distance, 10f, 175f);
-            CameraPosition = CarTwo.transform.position + Vector3.up * Distance + Vector3.forward * -Distance;
+            CameraPosition = CarTwo.transform.position + Vector3.up * Distance + Vector3.forward * -Distance*1.5f;
             LookAtPosition = CarTwo.transform.position;
         }
         else

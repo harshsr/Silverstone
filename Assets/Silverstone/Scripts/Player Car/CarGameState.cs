@@ -41,10 +41,19 @@ public class CarGameState : MonoBehaviour, ICarGameState
             {
                 PlayerWins();
             }
+
+            foreach (var PowerUp in LastCheckpointInfo.PowerUpsToReset)
+            {
+                PowerUp.SetActive(true);
+            }
         }
         else if (CheckpointInfo.CheckpointIndex == LastCheckpointInfo.CheckpointIndex+1)
         {
             LastCheckpointInfo = CheckpointInfo;
+            foreach (var PowerUp in LastCheckpointInfo.PowerUpsToReset)
+            {
+                PowerUp.SetActive(true);
+            }
         }
         else
         {

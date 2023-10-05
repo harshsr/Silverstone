@@ -7,6 +7,8 @@ public class CarEffects : MonoBehaviour, ICarEffects
     TrailRenderer[] DriftTrails;
     AudioSource EngineAudioSource;
     public float CarSpeedDivisor = 30f;
+    [SerializeField] ParticleSystem SpeedBoostParticles;
+    [SerializeField] ParticleSystem DashParticles;
     
     // Start is called before the first frame update
     void Start()
@@ -44,5 +46,20 @@ public class CarEffects : MonoBehaviour, ICarEffects
         {
             Trail.emitting = false;
         }
+    }
+    
+    public void EmmitSpeedBoostParticles()
+    {
+        SpeedBoostParticles.Play();
+    }
+    
+    public void StopSpeedBoostParticles()
+    {
+        SpeedBoostParticles.Stop();
+    }
+    
+    public void EmmitDashParticles()
+    {
+        DashParticles.Play();
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,7 +14,7 @@ public class PowerUp : MonoBehaviour
         if (other.gameObject.GetComponentInParent<IPowerUp>() != null)
         {
             other.gameObject.GetComponentInParent<IPowerUp>().UpdatePowerUp(PowerUpType);
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 }

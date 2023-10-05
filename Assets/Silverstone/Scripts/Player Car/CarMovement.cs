@@ -228,21 +228,24 @@ public class CarMovement : MonoBehaviour, ICarMovement
     void ICarMovement.Dash(float DashImpulse)
     {
         CarRigidbody.AddForce(transform.forward * DashImpulse, ForceMode.Impulse);
+        gameObject.GetComponentInChildren<ICarEffects>().EmmitDashParticles();
     }
 
-    public void Spin()
+    void ICarMovement.Spin(float SpinImpulse)
     {
-        throw new System.NotImplementedException();
+        CarRigidbody.AddTorque(transform.up * SpinImpulse, ForceMode.Impulse);
     }
     
     void ICarMovement.SpeedBoost(float BoostedAcceleration)
     {
         InternalForwardAcceleration = BoostedAcceleration;
+        gameObject.GetComponentInChildren<ICarEffects>().EmmitSpeedBoostParticles();
     }
     
     void ICarMovement.EndSpeedBoost()
     {
         InternalForwardAcceleration = ForwardAcceleration;
+        gameObject.GetComponentInChildren<ICarEffects>().StopSpeedBoostParticles();
     }
     
     float ICarMovement.GetSpeed()

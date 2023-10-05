@@ -6,7 +6,7 @@ using UnityEngine;
 public interface ICarMovement
 {
     void Dash(float DashImpulse);
-    void Spin();
+    void Spin( float SpinImpulse);
     void SpeedBoost(float BoostedAcceleration);
     void EndSpeedBoost();
     

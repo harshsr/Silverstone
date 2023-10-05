@@ -10,6 +10,7 @@ public class PowerUpManager : MonoBehaviour, IPowerUp
     [SerializeField] InputAction UsePowerUpAction;
     [SerializeField] float SpeedBoostAcceleration = 100f;
     [SerializeField] float DashImpulse = 25f;
+    [SerializeField] float SpinImpulse = 25f;
     
     bool bSpeedBoost = false;
     float SpeedBoostTimer = 0f;
@@ -47,16 +48,24 @@ public class PowerUpManager : MonoBehaviour, IPowerUp
             case PowerUpType.None:
                 break;
             case PowerUpType.Dash:
+            {
                 gameObject.GetComponent<ICarMovement>().Dash(DashImpulse);
                 break;
+            }
+                
             case PowerUpType.Health:
                 break;
             case PowerUpType.SpeedBoost:
+            {
                 Debug.Log("SpeedBoost");
                 gameObject.GetComponent<ICarMovement>().SpeedBoost(SpeedBoostAcceleration);
                 bSpeedBoost = true;
                 break;
+            }
             case PowerUpType.Spin:
+            {
+                gameObject.GetComponent<ICarMovement>().Spin(SpinImpulse);
+            }
                 break;
         }
         CurrentPowerUp = PowerUpType.None;
@@ -66,6 +75,12 @@ public class PowerUpManager : MonoBehaviour, IPowerUp
     public void UpdatePowerUp(PowerUpType powerUpType)
     {
         CurrentPowerUp = powerUpType;
+        switch (CurrentPowerUp)
+        {
+            case PowerUpType.Spin:
+                UsePowerUp();
+                break;
+        }
         Debug.Log("PowerUpType: " + CurrentPowerUp);
     }
 }

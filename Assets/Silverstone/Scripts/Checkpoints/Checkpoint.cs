@@ -7,6 +7,7 @@ public class Checkpoint : MonoBehaviour
 { 
     [SerializeField] CheckpointInfo CheckpointInfo;
     
+    
     void Start()
     {
         CheckpointInfo.CheckpointPosition = transform.position;
@@ -28,4 +29,5 @@ public struct CheckpointInfo
     public int CheckpointIndex;
     public Vector3 CheckpointPosition;
     public Vector3 CheckpointForward;
+    public GameObject[] PowerUpsToReset; 
 }
