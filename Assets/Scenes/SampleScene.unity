@@ -123,6 +123,74 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &50460422
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 517263097763934666, guid: 3efbce1990702ca42b67d8501f10e4d5,
+        type: 3}
+      propertyPath: m_Name
+      value: Checkpoint (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 651259713869603963, guid: 3efbce1990702ca42b67d8501f10e4d5,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 18.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 651259713869603963, guid: 3efbce1990702ca42b67d8501f10e4d5,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 9.66
+      objectReference: {fileID: 0}
+    - target: {fileID: 651259713869603963, guid: 3efbce1990702ca42b67d8501f10e4d5,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -8.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 651259713869603963, guid: 3efbce1990702ca42b67d8501f10e4d5,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.0035764896
+      objectReference: {fileID: 0}
+    - target: {fileID: 651259713869603963, guid: 3efbce1990702ca42b67d8501f10e4d5,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 651259713869603963, guid: 3efbce1990702ca42b67d8501f10e4d5,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.9999936
+      objectReference: {fileID: 0}
+    - target: {fileID: 651259713869603963, guid: 3efbce1990702ca42b67d8501f10e4d5,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 651259713869603963, guid: 3efbce1990702ca42b67d8501f10e4d5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 651259713869603963, guid: 3efbce1990702ca42b67d8501f10e4d5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 179.59
+      objectReference: {fileID: 0}
+    - target: {fileID: 651259713869603963, guid: 3efbce1990702ca42b67d8501f10e4d5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3efbce1990702ca42b67d8501f10e4d5, type: 3}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -276,159 +344,6 @@ MonoBehaviour:
   CarOne: {fileID: 1972205614}
   CarTwo: {fileID: 1265658937}
   Distance: 10
---- !u!1 &400762261
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 400762262}
-  - component: {fileID: 400762266}
-  - component: {fileID: 400762265}
-  - component: {fileID: 400762264}
-  - component: {fileID: 400762263}
-  m_Layer: 0
-  m_Name: CameraPlayer2
-  m_TagString: MainCamera
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &400762262
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 400762261}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.3235989, y: -19.3, z: -0.4840126}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1409982181}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &400762263
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 400762261}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a974636c8ae48144943957993eddaae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CarOne: {fileID: 0}
-  CarTwo: {fileID: 1265658937}
-  Distance: 10
---- !u!114 &400762264
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 400762261}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_RenderShadows: 1
-  m_RequiresDepthTextureOption: 2
-  m_RequiresOpaqueTextureOption: 2
-  m_CameraType: 0
-  m_Cameras: []
-  m_RendererIndex: -1
-  m_VolumeLayerMask:
-    serializedVersion: 2
-    m_Bits: 1
-  m_VolumeTrigger: {fileID: 0}
-  m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 1
-  m_Antialiasing: 0
-  m_AntialiasingQuality: 2
-  m_StopNaN: 0
-  m_Dithering: 0
-  m_ClearDepth: 1
-  m_AllowXRRendering: 1
-  m_AllowHDROutput: 1
-  m_UseScreenCoordOverride: 0
-  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
-  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
-  m_RequiresDepthTexture: 0
-  m_RequiresColorTexture: 0
-  m_Version: 2
-  m_TaaSettings:
-    quality: 3
-    frameInfluence: 0.1
-    jitterScale: 1
-    mipBias: 0
-    varianceClampScale: 0.9
-    contrastAdaptiveSharpening: 0
---- !u!81 &400762265
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 400762261}
-  m_Enabled: 0
---- !u!20 &400762266
-Camera:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 400762261}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
-  m_projectionMatrixMode: 1
-  m_GateFitMode: 2
-  m_FOVAxisMode: 0
-  m_Iso: 200
-  m_ShutterSpeed: 0.005
-  m_Aperture: 16
-  m_FocusDistance: 10
-  m_FocalLength: 50
-  m_BladeCount: 5
-  m_Curvature: {x: 2, y: 11}
-  m_BarrelClipping: 0.25
-  m_Anamorphism: 0
-  m_SensorSize: {x: 36, y: 24}
-  m_LensShift: {x: 0, y: 0}
-  m_NormalizedViewPortRect:
-    serializedVersion: 2
-    x: 0.5
-    y: 0
-    width: 0.5
-    height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
-  orthographic: 0
-  orthographic size: 5
-  m_Depth: -1
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 0
-  m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
-  m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
-  m_StereoConvergence: 10
-  m_StereoSeparation: 0.022
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -718,166 +633,13 @@ PrefabInstance:
     - target: {fileID: 1662167951615459799, guid: 3efbce1990702ca42b67d8501f10e4d5,
         type: 3}
       propertyPath: CheckpointInfo.CheckpointIndex
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3efbce1990702ca42b67d8501f10e4d5, type: 3}
---- !u!1 &787704916
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 787704917}
-  - component: {fileID: 787704921}
-  - component: {fileID: 787704920}
-  - component: {fileID: 787704919}
-  - component: {fileID: 787704918}
-  m_Layer: 0
-  m_Name: CameraPlayer1
-  m_TagString: MainCamera
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &787704917
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 787704916}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.25, y: -19.083, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1388368460}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &787704918
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 787704916}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a974636c8ae48144943957993eddaae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CarOne: {fileID: 1972205614}
-  CarTwo: {fileID: 0}
-  Distance: 10
---- !u!114 &787704919
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 787704916}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_RenderShadows: 1
-  m_RequiresDepthTextureOption: 2
-  m_RequiresOpaqueTextureOption: 2
-  m_CameraType: 0
-  m_Cameras: []
-  m_RendererIndex: -1
-  m_VolumeLayerMask:
-    serializedVersion: 2
-    m_Bits: 1
-  m_VolumeTrigger: {fileID: 0}
-  m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 1
-  m_Antialiasing: 0
-  m_AntialiasingQuality: 2
-  m_StopNaN: 0
-  m_Dithering: 0
-  m_ClearDepth: 1
-  m_AllowXRRendering: 1
-  m_AllowHDROutput: 1
-  m_UseScreenCoordOverride: 0
-  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
-  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
-  m_RequiresDepthTexture: 0
-  m_RequiresColorTexture: 0
-  m_Version: 2
-  m_TaaSettings:
-    quality: 3
-    frameInfluence: 0.1
-    jitterScale: 1
-    mipBias: 0
-    varianceClampScale: 0.9
-    contrastAdaptiveSharpening: 0
---- !u!81 &787704920
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 787704916}
-  m_Enabled: 1
---- !u!20 &787704921
-Camera:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 787704916}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
-  m_projectionMatrixMode: 1
-  m_GateFitMode: 2
-  m_FOVAxisMode: 0
-  m_Iso: 200
-  m_ShutterSpeed: 0.005
-  m_Aperture: 16
-  m_FocusDistance: 10
-  m_FocalLength: 50
-  m_BladeCount: 5
-  m_Curvature: {x: 2, y: 11}
-  m_BarrelClipping: 0.25
-  m_Anamorphism: 0
-  m_SensorSize: {x: 36, y: 24}
-  m_LensShift: {x: 0, y: 0}
-  m_NormalizedViewPortRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0.5
-    height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
-  orthographic: 0
-  orthographic size: 5
-  m_Depth: -1
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 0
-  m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
-  m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
-  m_StereoConvergence: 10
-  m_StereoSeparation: 0.022
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -993,7 +755,7 @@ PrefabInstance:
     - target: {fileID: 1662167951615459799, guid: 3efbce1990702ca42b67d8501f10e4d5,
         type: 3}
       propertyPath: CheckpointInfo.CheckpointIndex
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1107,7 +869,7 @@ MonoBehaviour:
   rows: 4
   columns: 16
   smooth: 0
-  m_IsEditing: 1
+  m_IsEditing: 0
 --- !u!33 &1314667087
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -18492,12 +18254,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1388368460 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4554187195816959002, guid: 58cddc3b2a52cd641b8022c81da77d56,
-    type: 3}
-  m_PrefabInstance: {fileID: 2476505964828540000}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1396490030
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18506,6 +18262,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1124795315895193407, guid: 58cddc3b2a52cd641b8022c81da77d56,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1267247486430694386, guid: 58cddc3b2a52cd641b8022c81da77d56,
         type: 3}
       propertyPath: m_Name
@@ -18545,6 +18306,21 @@ PrefabInstance:
         type: 3}
       propertyPath: DashForce
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 4540139700624163771, guid: 58cddc3b2a52cd641b8022c81da77d56,
+        type: 3}
+      propertyPath: DriftDrag
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4540139700624163771, guid: 58cddc3b2a52cd641b8022c81da77d56,
+        type: 3}
+      propertyPath: SteerLeanTorque
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4540139700624163771, guid: 58cddc3b2a52cd641b8022c81da77d56,
+        type: 3}
+      propertyPath: ForwardAcceleration
+      value: 95
       objectReference: {fileID: 0}
     - target: {fileID: 4540139700624163771, guid: 58cddc3b2a52cd641b8022c81da77d56,
         type: 3}
@@ -18601,6 +18377,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4588409350732839714, guid: 58cddc3b2a52cd641b8022c81da77d56,
+        type: 3}
+      propertyPath: m_Name
+      value: PhysicsCubeP2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4826189974838621622, guid: 58cddc3b2a52cd641b8022c81da77d56,
+        type: 3}
+      propertyPath: m_NormalizedViewPortRect.x
+      value: 0.505
+      objectReference: {fileID: 0}
     - target: {fileID: 6663605503938948417, guid: 58cddc3b2a52cd641b8022c81da77d56,
         type: 3}
       propertyPath: ResetCar.m_Name
@@ -18626,21 +18412,16 @@ PrefabInstance:
       propertyPath: ResetCar.m_SingletonActionBindings.Array.data[0].m_Action
       value: Reset Car
       objectReference: {fileID: 0}
+    - target: {fileID: 8433968843573114170, guid: 58cddc3b2a52cd641b8022c81da77d56,
+        type: 3}
+      propertyPath: m_Name
+      value: CameraPlayer2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 4554187195816959002, guid: 58cddc3b2a52cd641b8022c81da77d56,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 400762262}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58cddc3b2a52cd641b8022c81da77d56, type: 3}
---- !u!4 &1409982181 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4554187195816959002, guid: 58cddc3b2a52cd641b8022c81da77d56,
-    type: 3}
-  m_PrefabInstance: {fileID: 1396490030}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1615137444
 GameObject:
   m_ObjectHideFlags: 0
@@ -19114,6 +18895,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerCarOne
       objectReference: {fileID: 0}
+    - target: {fileID: 1446468726952287845, guid: 58cddc3b2a52cd641b8022c81da77d56,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 0.95
+      objectReference: {fileID: 0}
     - target: {fileID: 2673989528103675399, guid: 58cddc3b2a52cd641b8022c81da77d56,
         type: 3}
       propertyPath: UsePowerUpAction.m_Name
@@ -19143,6 +18929,21 @@ PrefabInstance:
         type: 3}
       propertyPath: DashForce
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 4540139700624163771, guid: 58cddc3b2a52cd641b8022c81da77d56,
+        type: 3}
+      propertyPath: DriftDrag
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4540139700624163771, guid: 58cddc3b2a52cd641b8022c81da77d56,
+        type: 3}
+      propertyPath: SteerLeanTorque
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4540139700624163771, guid: 58cddc3b2a52cd641b8022c81da77d56,
+        type: 3}
+      propertyPath: ForwardAcceleration
+      value: 95
       objectReference: {fileID: 0}
     - target: {fileID: 4540139700624163771, guid: 58cddc3b2a52cd641b8022c81da77d56,
         type: 3}
@@ -19214,6 +19015,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4588409350732839714, guid: 58cddc3b2a52cd641b8022c81da77d56,
+        type: 3}
+      propertyPath: m_Name
+      value: PhysicsCubeP1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4826189974838621622, guid: 58cddc3b2a52cd641b8022c81da77d56,
+        type: 3}
+      propertyPath: m_NormalizedViewPortRect.x
+      value: -0.005
+      objectReference: {fileID: 0}
     - target: {fileID: 6663605503938948417, guid: 58cddc3b2a52cd641b8022c81da77d56,
         type: 3}
       propertyPath: ResetCar.m_Name
@@ -19239,13 +19050,14 @@ PrefabInstance:
       propertyPath: ResetCar.m_SingletonActionBindings.Array.data[0].m_Action
       value: Reset Car
       objectReference: {fileID: 0}
+    - target: {fileID: 8433968843573114170, guid: 58cddc3b2a52cd641b8022c81da77d56,
+        type: 3}
+      propertyPath: m_Name
+      value: CameraPlayer1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 4554187195816959002, guid: 58cddc3b2a52cd641b8022c81da77d56,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 787704917}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58cddc3b2a52cd641b8022c81da77d56, type: 3}
 --- !u!1001 &6554361924317349301
@@ -19311,6 +19123,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1662167951615459799, guid: 3efbce1990702ca42b67d8501f10e4d5,
+        type: 3}
+      propertyPath: CheckpointInfo.CheckpointIndex
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -19330,5 +19147,6 @@ SceneRoots:
   - {fileID: 1615137449}
   - {fileID: 1314667090}
   - {fileID: 6554361924317349301}
+  - {fileID: 50460422}
   - {fileID: 533308708}
   - {fileID: 1149990486}

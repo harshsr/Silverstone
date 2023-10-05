@@ -5,8 +5,10 @@ using UnityEngine;
 
 public interface ICarMovement
 {
-    void Dash();
+    void Dash(float DashImpulse);
     void Spin();
-    void SpeedBoost();
+    void SpeedBoost(float BoostedAcceleration);
+    void EndSpeedBoost();
     
+    float GetSpeed();
 }

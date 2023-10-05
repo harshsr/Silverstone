@@ -27,11 +27,6 @@ public class CarMovement : MonoBehaviour, ICarMovement
     [SerializeField] private float GroundDrag = 2.5f;
     [SerializeField] private float AirDrag = 0f;
     [SerializeField] private float SteerLeanTorque = 15f;
-    
-    [Header("Powerup Config")]
-    [SerializeField] private float DashForce = 25f;
-    [SerializeField] private float SpinTorque = 100f;
-    [SerializeField] private float SpeedBoostForce = 100f;
 
     [Header("Input")]
     [SerializeField] InputAction LongitudinalInput;
@@ -54,6 +49,7 @@ public class CarMovement : MonoBehaviour, ICarMovement
     public Vector3 AverageNormal;
     private float InternalDrag = 0f;
     private float InternalSteerTorque = 0f;
+    private float InternalForwardAcceleration = 0f;
     bool bDrift = false;
     
     
@@ -73,9 +69,10 @@ public class CarMovement : MonoBehaviour, ICarMovement
         SpringDeflectionRearLeft = 0f;
         SpringDeflectionRearRight = 0f;
         AverageNormal = Vector3.up;
-        GroundCheckDistance = RestLength + 0.5f;
+        GroundCheckDistance = RestLength + 0.35f;
         InternalDrag = AntiDrifDrag;
         InternalSteerTorque = SteerTorque;
+        InternalForwardAcceleration = ForwardAcceleration;
     }
     
     // Update is called once per frame
@@ -86,14 +83,25 @@ public class CarMovement : MonoBehaviour, ICarMovement
         if (DriftInput.ReadValue<float>()>0f)
         {
             bDrift = true;
+            
         }
         else
         {
             bDrift = false;
         }
 
+        // Drift Trail
+        if (IsGrounded() && bDrift && CarRigidbody.velocity.magnitude > 5f)
+        {
+            gameObject.GetComponentInChildren<ICarEffects>().EmmitDriftTrail();
+        }
+        else
+        {
+            gameObject.GetComponentInChildren<ICarEffects>().StopDriftTrail();
+        }
 
-        
+
+        Debug.Log(InternalForwardAcceleration);
         //Debug.Log(bDrift);
     }
 
@@ -122,7 +130,7 @@ public class CarMovement : MonoBehaviour, ICarMovement
         {
             if (LongitudinalInputValue > 0f)
             {
-                CarRigidbody.AddForceAtPosition(ForwardAcceleration * ProjectedForward, AccelerationPoint.transform.position,
+                CarRigidbody.AddForceAtPosition(InternalForwardAcceleration * ProjectedForward, AccelerationPoint.transform.position,
                     ForceMode.Acceleration);
             }
             else if (LongitudinalInputValue < 0f)
@@ -141,13 +149,13 @@ public class CarMovement : MonoBehaviour, ICarMovement
             if (LateralInput.ReadValue<float>() > 0f)
             {
                 CarRigidbody.AddTorque(transform.up * (InternalSteerTorque * Mathf.Sign(LongitudinalInputValue) * SpeedFactor), ForceMode.Acceleration);
-                // Body Lean Torque
+                // Body lean torque purely for visual effect
                  CarRigidbody.AddTorque(transform.forward * SteerLeanTorque , ForceMode.Acceleration);
             }
             else if (LateralInput.ReadValue<float>() < 0f)
             {
                 CarRigidbody.AddTorque(-transform.up * (InternalSteerTorque * Mathf.Sign(LongitudinalInputValue) * SpeedFactor), ForceMode.Acceleration);
-                // Body Lean Torque
+                // Body lean torque purely for visual effect
                 CarRigidbody.AddTorque(-transform.forward * SteerLeanTorque , ForceMode.Acceleration);
             }
         }
@@ -216,21 +224,29 @@ public class CarMovement : MonoBehaviour, ICarMovement
     {
         return Physics.Raycast(transform.position, transform.up, GroundCheckDistance * 2, LayerMask.GetMask("Ground"));
     }
-    
-    public void Dash()
+
+    void ICarMovement.Dash(float DashImpulse)
     {
-        CarRigidbody.AddForce(transform.forward * DashForce, ForceMode.Impulse);
+        CarRigidbody.AddForce(transform.forward * DashImpulse, ForceMode.Impulse);
     }
 
     public void Spin()
     {
         throw new System.NotImplementedException();
     }
-
-    public void SpeedBoost()
+    
+    void ICarMovement.SpeedBoost(float BoostedAcceleration)
     {
-        throw new System.NotImplementedException();
+        InternalForwardAcceleration = BoostedAcceleration;
     }
-
-
+    
+    void ICarMovement.EndSpeedBoost()
+    {
+        InternalForwardAcceleration = ForwardAcceleration;
+    }
+    
+    float ICarMovement.GetSpeed()
+    {
+        return CarRigidbody.velocity.magnitude;
+    }
 }
