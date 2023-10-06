@@ -30,9 +30,9 @@ public class WheelOffset : MonoBehaviour
     {
         if (Car)
         {
-            if (Car.GetComponent<CarMovement>().IsGrounded())
+            if (Car.GetComponent<IEnemyCarMovement>().IsGrounded())
             {
-                UpVector = Car.GetComponent<CarMovement>().AverageNormal;
+                UpVector = Car.GetComponent<IEnemyCarMovement>().GetAverageNormal();
             }
             else
             {

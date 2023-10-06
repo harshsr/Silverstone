@@ -1,10 +1,7 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class CarMovement : MonoBehaviour, ICarMovement
+public class CarMovement : MonoBehaviour, ICarMovement, IEnemyCarMovement
 {
     [Header("Suspension Config")]
     [SerializeField] GameObject SuspensionFrontLeft;
@@ -35,10 +32,10 @@ public class CarMovement : MonoBehaviour, ICarMovement
     
     
     // Spring Suspension
-    private float SpringDeflectionFrontLeft;
-    private float SpringDeflectionFrontRight;
-    private float SpringDeflectionRearLeft;
-    private float SpringDeflectionRearRight;
+    private float SpringDeflectionFrontLeft = 0f;
+    private float SpringDeflectionFrontRight = 0f;
+    private float SpringDeflectionRearLeft = 0f;
+    private float SpringDeflectionRearRight = 0f;
     
     private RaycastHit FrontLeftHit;
     private RaycastHit FrontRightHit;
@@ -64,10 +61,6 @@ public class CarMovement : MonoBehaviour, ICarMovement
         LongitudinalInput.Enable();
         DriftInput.Enable();
         CarRigidbody = GetComponent<Rigidbody>();
-        SpringDeflectionFrontLeft = 0f;
-        SpringDeflectionFrontRight = 0f;
-        SpringDeflectionRearLeft = 0f;
-        SpringDeflectionRearRight = 0f;
         AverageNormal = Vector3.up;
         GroundCheckDistance = RestLength + 0.35f;
         InternalDrag = AntiDrifDrag;
@@ -80,15 +73,7 @@ public class CarMovement : MonoBehaviour, ICarMovement
     {
         PerformSuspensionChecks();
 
-        if (DriftInput.ReadValue<float>()>0f)
-        {
-            bDrift = true;
-            
-        }
-        else
-        {
-            bDrift = false;
-        }
+        bDrift = DriftInput.ReadValue<float>()>0f;
 
         // Drift Trail
         if (IsGrounded() && bDrift && CarRigidbody.velocity.magnitude > 5f)
@@ -101,7 +86,7 @@ public class CarMovement : MonoBehaviour, ICarMovement
         }
 
 
-        Debug.Log(InternalForwardAcceleration);
+        //Debug.Log(InternalForwardAcceleration);
         //Debug.Log(bDrift);
     }
 
@@ -137,9 +122,8 @@ public class CarMovement : MonoBehaviour, ICarMovement
             {
                 CarRigidbody.AddForceAtPosition(-Deceleration * ProjectedForward, BreakingPoint.transform.position,
                     ForceMode.Acceleration);
-            }  
+            }
         }
-  
         
         InternalSteerTorque = bDrift ? DriftTorque : SteerTorque;
         if (IsGrounded())
@@ -205,22 +189,15 @@ public class CarMovement : MonoBehaviour, ICarMovement
 
     void ManageDrag()
     {
-        if (IsGrounded())
-        {
-            CarRigidbody.drag = GroundDrag;
-        }
-        else
-        {
-            CarRigidbody.drag = AirDrag;
-        }
+        CarRigidbody.drag = IsGrounded() ? GroundDrag : AirDrag;
     }
     
     public bool IsGrounded()
     {
         return Physics.Raycast(transform.position, -transform.up, GroundCheckDistance, LayerMask.GetMask("Ground"));
     }
-    
-    public bool IsFlipped()
+
+    private bool IsFlipped()
     {
         return Physics.Raycast(transform.position, transform.up, GroundCheckDistance * 2, LayerMask.GetMask("Ground"));
     }
@@ -251,5 +228,10 @@ public class CarMovement : MonoBehaviour, ICarMovement
     float ICarMovement.GetSpeed()
     {
         return CarRigidbody.velocity.magnitude;
+    }
+    
+    public Vector3 GetAverageNormal()
+    {
+        return AverageNormal;
     }
 }
