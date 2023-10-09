@@ -41,8 +41,7 @@ public class HandleCollisions : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            gameObject.GetComponent<Rigidbody>().AddForce(other.GetContact(0).normal* other.gameObject.GetComponent<Rigidbody>().velocity.magnitude, 
-                ForceMode.Impulse);
+            //gameObject.GetComponent<Rigidbody>().AddForce(other.GetContact(0).normal* other.gameObject.GetComponent<Rigidbody>().velocity.magnitude, ForceMode.Impulse);
         }
     }
 }

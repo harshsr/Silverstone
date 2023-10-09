@@ -47,4 +47,12 @@ public class AIPathManager : MonoBehaviour
         Physics.Raycast(Position, Vector3.down, out Hit, 100f, LayerMask.GetMask("Ground"));
         return Hit.point;
     }
+    
+    public Vector3 GetPositionAtIndex(int Index)
+    {
+        Vector3 Destination = FindGroundPosition(Waypoints[Index].transform.position);
+        Destination.y += NormalDistanceToGround;
+        CurrentWaypointIndex = Index;
+        return Destination;
+    }
 }

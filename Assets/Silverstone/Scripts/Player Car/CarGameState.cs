@@ -9,17 +9,29 @@ public class CarGameState : MonoBehaviour, ICarGameState
     int NumberOfCheckpoints;
     int LapCount;
     int MaxLaps = 3;
+    [SerializeField] bool bIsAI = false;
+    
+    [SerializeField] string PlayerName;
 
     [SerializeField] private InputAction ResetCar;
     
+    MatchManagerSplit MatchManager;
+    
     void Start()
     {
+        MatchManager = GameObject.FindWithTag("MatchManager").GetComponent<MatchManagerSplit>();
+        MaxLaps = MatchManagerSplit.MaxLaps;
         ResetCar.Enable();
         LastCheckpointInfo.CheckpointIndex = -1;
         LastCheckpointInfo.CheckpointPosition = transform.position;
         LastCheckpointInfo.CheckpointForward = transform.forward;
         
         NumberOfCheckpoints = GameObject.FindGameObjectsWithTag("Checkpoint").Length;
+        if (!bIsAI)
+        {
+            gameObject.GetComponentInParent<IUI>().LapUp(LapCount);
+
+        }
     }
     
     void Update()
@@ -36,23 +48,33 @@ public class CarGameState : MonoBehaviour, ICarGameState
         {
             //Lap completed
             LapCount++;
+            if (!bIsAI)
+            {
+                gameObject.GetComponentInParent<IUI>().LapUp(LapCount);
+            }
             LastCheckpointInfo = CheckpointInfo;
             if (LapCount == MaxLaps)
             {
                 PlayerWins();
             }
 
-            foreach (var PowerUp in LastCheckpointInfo.PowerUpsToReset)
+            if (!bIsAI)
             {
-                PowerUp.SetActive(true);
+                foreach (var PowerUp in LastCheckpointInfo.PowerUpsToReset)
+                {
+                    PowerUp.SetActive(true);
+                }
             }
         }
         else if (CheckpointInfo.CheckpointIndex == LastCheckpointInfo.CheckpointIndex+1)
         {
             LastCheckpointInfo = CheckpointInfo;
-            foreach (var PowerUp in LastCheckpointInfo.PowerUpsToReset)
+            if (!bIsAI)
             {
-                PowerUp.SetActive(true);
+                foreach (var PowerUp in LastCheckpointInfo.PowerUpsToReset)
+                {
+                    PowerUp.SetActive(true);
+                }
             }
         }
         else
@@ -66,10 +88,14 @@ public class CarGameState : MonoBehaviour, ICarGameState
         gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
         transform.position = LastCheckpointInfo.CheckpointPosition;
         transform.forward = LastCheckpointInfo.CheckpointForward;
+        if (bIsAI)
+        {
+            gameObject.GetComponent<IEnemyCarMovement>().ResetCalled(LastCheckpointInfo.NextAIWaypointIndex);
+        }
     }
-    
+
     void PlayerWins()
     {
-        Debug.Log("PlayerWins");
+        MatchManager.PlayerWin(PlayerName, bIsAI);
     }
 }

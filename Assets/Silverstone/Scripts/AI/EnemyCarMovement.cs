@@ -40,15 +40,22 @@ public class EnemyCarMovement : MonoBehaviour, IEnemyCarMovement
     float GroundCheckDistance = 1f;
     
     Vector3 NextWaypointPosition;
-    AIPathManager PathManager;
+    [SerializeField] AIPathManager PathManager;
+    
+    float InternaalForwardAcceleration = 0f;
     
     
     // Start is called before the first frame update
+    private void Awake()
+    {
+
+    }
+
     void Start()
     {
         CarRigidbody = gameObject.GetComponent<Rigidbody>();
         AverageNormal = Vector3.up;
-        PathManager = GameObject.FindWithTag("AIPath").GetComponent<AIPathManager>();
+        //PathManager = GameObject.FindWithTag("AIPath").GetComponent<AIPathManager>();
         GroundCheckDistance = RestLength + 0.35f;
         NextWaypointPosition = PathManager.GetCurrentWaypointPosition();
     }
@@ -57,15 +64,19 @@ public class EnemyCarMovement : MonoBehaviour, IEnemyCarMovement
     void Update()
     {
         PerformSuspensionChecks();
+        
     }
 
     private void FixedUpdate()
     {
         ApplySuspensionForces();
         AverageNormal = (FrontLeftHit.normal + FrontRightHit.normal + RearLeftHit.normal + RearRightHit.normal) / 4;
-        ApplyMovementForces();
-        //AntiDriftDrag();
-        //ManageDrag();
+        if (MatchManagerSplit.bIsMatchStarted)
+        {
+            ApplyMovementForces();
+        }
+        AntiDriftDrag();
+        ManageDrag();
     }
 
     void PerformSuspensionChecks()
@@ -115,10 +126,22 @@ public class EnemyCarMovement : MonoBehaviour, IEnemyCarMovement
         {
             NextWaypointPosition = PathManager.GetNextWaypointPosition();
         }
-        Vector3 Direction = (NextWaypointPosition - transform.position).normalized;
-        CarRigidbody.AddForceAtPosition(Direction * ForwardAcceleration, AccelerationPoint.transform.position);
         
-        transform.forward = Vector3.Lerp(transform.forward, Direction, 0.1f);
+        float LongitudinalInput = Vector3.Dot(transform.forward, (NextWaypointPosition - transform.position).normalized);
+        float LateralInput = Vector3.Dot(transform.right, (NextWaypointPosition - transform.position).normalized);
+        float SteerInput = LateralInput * SteerTorque;
+        
+        Vector3 ProjectedForward = Vector3.ProjectOnPlane(transform.forward, AverageNormal);
+
+        if (IsGrounded())
+        {
+            CarRigidbody.AddForceAtPosition(LongitudinalInput * ForwardAcceleration * ProjectedForward, AccelerationPoint.transform.position);
+            float SpeedFactor = Mathf.Clamp01(CarRigidbody.velocity.magnitude / 10f);
+            CarRigidbody.AddTorque(transform.up * (SteerInput * SpeedFactor), ForceMode.Acceleration);
+            // Body lean torque purely for visual effect
+            CarRigidbody.AddTorque(transform.forward * (SteerLeanTorque * LateralInput) , ForceMode.Acceleration);
+        }
+        
     }
     
     void ManageDrag()
@@ -134,5 +157,15 @@ public class EnemyCarMovement : MonoBehaviour, IEnemyCarMovement
     public Vector3 GetAverageNormal()
     {
         return AverageNormal;
+    }
+    
+    public void ResetCalled( int WaypointIndex )
+    {
+        NextWaypointPosition = PathManager.GetPositionAtIndex(WaypointIndex);
+    }
+    
+    void VariableForwardAcceleration()
+    {
+        float RandomValue = UnityEngine.Random.Range(-5f, 5f);
     }
 }

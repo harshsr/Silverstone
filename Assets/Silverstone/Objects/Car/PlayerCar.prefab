@@ -200,6 +200,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4554187195816959002}
+  - component: {fileID: 1563042614211927616}
   m_Layer: 0
   m_Name: PlayerCar
   m_TagString: Untagged
@@ -216,7 +217,7 @@ Transform:
   m_GameObject: {fileID: 1267247486430694386}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.729, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -225,6 +226,23 @@ Transform:
   - {fileID: 4206696365441446631}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1563042614211927616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1267247486430694386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2d76c8d2c9e1db4799a3b968837d6ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NoPowerupImage: {fileID: 0}
+  SpeedUpImage: {fileID: 0}
+  DashImage: {fileID: 0}
+  PowerUpText: {fileID: 0}
+  LapText: {fileID: 0}
 --- !u!1 &1965831580625688740
 GameObject:
   m_ObjectHideFlags: 0
@@ -10461,7 +10479,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UsePowerUpAction:
-    m_Name: 
+    m_Name: Use Power Up
     m_Type: 0
     m_ExpectedControlType: 
     m_Id: d16a3863-2597-40a7-b702-0b0ab8c7ca1d
@@ -10497,8 +10515,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 139085631d1ffb1498e649573b0f6573, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bIsAI: 0
+  PlayerName: 
   ResetCar:
-    m_Name: 
+    m_Name: Reset Car
     m_Type: 0
     m_ExpectedControlType: 
     m_Id: 699cc468-a2fc-4f4b-867a-558994e6b7d9
@@ -11007,7 +11027,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CarOne: {fileID: 4588409350732839714}
   CarTwo: {fileID: 0}
-  Distance: 10
+  Distance: 5
 --- !u!1001 &7296446913636853169
 PrefabInstance:
   m_ObjectHideFlags: 0

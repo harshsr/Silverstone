@@ -18,7 +18,7 @@ public class Checkpoint : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             other.GetComponentInParent<ICarGameState>().UpdateCheckpoint(CheckpointInfo);
-            Debug.Log("Checkpoint " + CheckpointInfo.CheckpointIndex + " reached");
+            //Debug.Log("Checkpoint " + CheckpointInfo.CheckpointIndex + " reached");
         }
     }
 }
@@ -29,5 +29,6 @@ public struct CheckpointInfo
     public int CheckpointIndex;
     public Vector3 CheckpointPosition;
     public Vector3 CheckpointForward;
-    public GameObject[] PowerUpsToReset; 
+    public GameObject[] PowerUpsToReset;
+    public int NextAIWaypointIndex;
 }

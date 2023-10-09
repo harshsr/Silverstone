@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PowerUpManager : MonoBehaviour, IPowerUp
 {
-    private PowerUpType CurrentPowerUp;
+    private PowerUpType CurrentPowerUp = PowerUpType.None;
     
     [SerializeField] InputAction UsePowerUpAction;
     [SerializeField] float SpeedBoostAcceleration = 100f;
@@ -19,6 +19,7 @@ public class PowerUpManager : MonoBehaviour, IPowerUp
     void Start()
     {
         UsePowerUpAction.Enable();
+        gameObject.GetComponentInParent<IUI>().UpdatePowerUp(CurrentPowerUp);
     }
 
     // Update is called once per frame
@@ -69,19 +70,20 @@ public class PowerUpManager : MonoBehaviour, IPowerUp
                 break;
         }
         CurrentPowerUp = PowerUpType.None;
-        Debug.Log("UsePowerUp");
+        gameObject.GetComponentInParent<IUI>().UpdatePowerUp(CurrentPowerUp);
     }
 
     public void UpdatePowerUp(PowerUpType powerUpType)
     {
         CurrentPowerUp = powerUpType;
+        gameObject.GetComponentInParent<IUI>().UpdatePowerUp(CurrentPowerUp);
         switch (CurrentPowerUp)
         {
             case PowerUpType.Spin:
                 UsePowerUp();
                 break;
-        }
-        Debug.Log("PowerUpType: " + CurrentPowerUp);
+        } 
+        
     }
 }
 

@@ -96,7 +96,7 @@ public class CarMovement : MonoBehaviour, ICarMovement, IEnemyCarMovement
         AverageNormal = (FrontLeftHit.normal + FrontRightHit.normal + RearLeftHit.normal + RearRightHit.normal) / 4f;
 
         // Apply Input
-        if (!IsFlipped())
+        if (!IsFlipped() && MatchManagerSplit.bIsMatchStarted)
         {
             ApplyMovementForces();
         }
@@ -130,18 +130,9 @@ public class CarMovement : MonoBehaviour, ICarMovement, IEnemyCarMovement
         {
             float SpeedFactor = Mathf.Clamp01(CarRigidbody.velocity.magnitude / 10f);
            
-            if (LateralInput.ReadValue<float>() > 0f)
-            {
-                CarRigidbody.AddTorque(transform.up * (InternalSteerTorque * Mathf.Sign(LongitudinalInputValue) * SpeedFactor), ForceMode.Acceleration);
-                // Body lean torque purely for visual effect
-                 CarRigidbody.AddTorque(transform.forward * SteerLeanTorque , ForceMode.Acceleration);
-            }
-            else if (LateralInput.ReadValue<float>() < 0f)
-            {
-                CarRigidbody.AddTorque(-transform.up * (InternalSteerTorque * Mathf.Sign(LongitudinalInputValue) * SpeedFactor), ForceMode.Acceleration);
-                // Body lean torque purely for visual effect
-                CarRigidbody.AddTorque(-transform.forward * SteerLeanTorque , ForceMode.Acceleration);
-            }
+            CarRigidbody.AddTorque(transform.up * (InternalSteerTorque * Mathf.Sign(LongitudinalInputValue) * SpeedFactor * LateralInput.ReadValue<float>()), ForceMode.Acceleration);
+            // Body lean torque purely for visual effect
+            CarRigidbody.AddTorque(transform.forward * (SteerLeanTorque * LateralInput.ReadValue<float>()) , ForceMode.Acceleration);
         }
     }
 
@@ -204,7 +195,8 @@ public class CarMovement : MonoBehaviour, ICarMovement, IEnemyCarMovement
 
     void ICarMovement.Dash(float DashImpulse)
     {
-        CarRigidbody.AddForce(transform.forward * DashImpulse, ForceMode.Impulse);
+        Vector3 ProjectedForward = Vector3.ProjectOnPlane(transform.forward, AverageNormal);
+        CarRigidbody.AddForce(ProjectedForward * DashImpulse, ForceMode.Impulse);
         gameObject.GetComponentInChildren<ICarEffects>().EmmitDashParticles();
     }
 
@@ -234,4 +226,7 @@ public class CarMovement : MonoBehaviour, ICarMovement, IEnemyCarMovement
     {
         return AverageNormal;
     }
+    
+    void IEnemyCarMovement.ResetCalled(int WaypointIndex)
+    { }
 }

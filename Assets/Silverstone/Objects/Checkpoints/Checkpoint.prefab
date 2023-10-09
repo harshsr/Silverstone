@@ -26,15 +26,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 517263097763934666}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.9992799, z: 0, w: 0.03794305}
-  m_LocalPosition: {x: 38.41, y: 11.41, z: -88.72}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1948205889796047167}
   - {fileID: 7059710338345693001}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 175.651, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &4034990173895159931
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -72,6 +72,8 @@ MonoBehaviour:
     CheckpointIndex: 0
     CheckpointPosition: {x: 0, y: 0, z: 0}
     CheckpointForward: {x: 0, y: 0, z: 0}
+    PowerUpsToReset: []
+    NextAIWaypointIndex: 0
 --- !u!1 &2301252433837422635
 GameObject:
   m_ObjectHideFlags: 0
