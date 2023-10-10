@@ -9,6 +9,4 @@ public interface ICarMovement
     void Spin( float SpinImpulse);
     void SpeedBoost(float BoostedAcceleration);
     void EndSpeedBoost();
-    
-    float GetSpeed();
 }

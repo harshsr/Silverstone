@@ -8,5 +8,5 @@ public interface IEnemyCarMovement
     Vector3 GetAverageNormal();
     
     void ResetCalled(int WaypointIndex);
- 
+    float GetSpeed();
 }

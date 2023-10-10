@@ -8,6 +8,6 @@ public class DrawSuspensionPointGizmo : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawSphere(transform.position, 0.1f);
+        Gizmos.DrawSphere(transform.position, 0.25f);
     }
 }

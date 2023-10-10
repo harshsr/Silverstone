@@ -168,4 +168,9 @@ public class EnemyCarMovement : MonoBehaviour, IEnemyCarMovement
     {
         float RandomValue = UnityEngine.Random.Range(-5f, 5f);
     }
+    
+    public float GetSpeed()
+    {
+        return CarRigidbody.velocity.magnitude;
+    }
 }

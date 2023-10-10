@@ -110,8 +110,11 @@ public class CarMovement : MonoBehaviour, ICarMovement, IEnemyCarMovement
         float LongitudinalInputValue = LongitudinalInput.ReadValue<float>();
         
         Vector3 ProjectedForward = Vector3.ProjectOnPlane(transform.forward, AverageNormal);
-
-        if (IsGrounded())
+        
+        // normal direction is used to make sure the car is not accelerating when it is going up an almost vertical slope
+        float NormalDirection = Vector3.Dot(Vector3.up, AverageNormal);
+        //Debug.Log(NormalDirection);
+        if (IsGrounded() && Mathf.Abs(NormalDirection) > 0.75f)
         {
             if (LongitudinalInputValue > 0f)
             {
@@ -217,7 +220,7 @@ public class CarMovement : MonoBehaviour, ICarMovement, IEnemyCarMovement
         gameObject.GetComponentInChildren<ICarEffects>().StopSpeedBoostParticles();
     }
     
-    float ICarMovement.GetSpeed()
+    float IEnemyCarMovement.GetSpeed()
     {
         return CarRigidbody.velocity.magnitude;
     }

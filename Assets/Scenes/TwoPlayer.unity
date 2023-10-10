@@ -22357,6 +22357,11 @@ PrefabInstance:
       propertyPath: m_NormalizedViewPortRect.x
       value: 0.5025
       objectReference: {fileID: 0}
+    - target: {fileID: 6075207845807446488, guid: 58cddc3b2a52cd641b8022c81da77d56,
+        type: 3}
+      propertyPath: Distance
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 6663605503938948417, guid: 58cddc3b2a52cd641b8022c81da77d56,
         type: 3}
       propertyPath: PlayerName
@@ -25506,6 +25511,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_NormalizedViewPortRect.x
       value: -0.0025
+      objectReference: {fileID: 0}
+    - target: {fileID: 6075207845807446488, guid: 58cddc3b2a52cd641b8022c81da77d56,
+        type: 3}
+      propertyPath: Distance
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6663605503938948417, guid: 58cddc3b2a52cd641b8022c81da77d56,
         type: 3}
