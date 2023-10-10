@@ -26,9 +26,16 @@ public class CarEffects : MonoBehaviour, ICarEffects
     
     void EngineAudio()
     {
-        float Pitchfactor = gameObject.GetComponentInParent<ICarMovement>().GetSpeed() / CarSpeedDivisor;
-        Pitchfactor = Mathf.Clamp(Pitchfactor, 0.2f, 1.2f);
-        EngineAudioSource.pitch = Pitchfactor;
+        if (Time.timeScale == 0)
+        {
+            EngineAudioSource.pitch = 0;
+        }
+        else
+        {
+            float Pitchfactor = gameObject.GetComponentInParent<ICarMovement>().GetSpeed() / CarSpeedDivisor;
+            Pitchfactor = Mathf.Clamp(Pitchfactor, 0.2f, 1.2f);
+            EngineAudioSource.pitch = Pitchfactor;
+        }
     }
     
     

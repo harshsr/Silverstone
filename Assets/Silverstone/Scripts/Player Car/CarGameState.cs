@@ -20,7 +20,7 @@ public class CarGameState : MonoBehaviour, ICarGameState
     void Start()
     {
         MatchManager = GameObject.FindWithTag("MatchManager").GetComponent<MatchManagerSplit>();
-        MaxLaps = MatchManagerSplit.MaxLaps;
+        MaxLaps = MatchManager.GetMaxLaps();
         ResetCar.Enable();
         LastCheckpointInfo.CheckpointIndex = -1;
         LastCheckpointInfo.CheckpointPosition = transform.position;
