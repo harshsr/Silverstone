@@ -25,6 +25,10 @@ public class MatchManagerSplit : MonoBehaviour
     public static bool bIsMatchStarted = false;
     
     
+    void Awake()
+    {
+        RestartTimer();
+    }
     void Start()
     {
         StartTimerText.SetActive(true);
