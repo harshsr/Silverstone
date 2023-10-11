@@ -96,7 +96,7 @@ public class CarMovement : MonoBehaviour, ICarMovement, IEnemyCarMovement
         AverageNormal = (FrontLeftHit.normal + FrontRightHit.normal + RearLeftHit.normal + RearRightHit.normal) / 4f;
 
         // Apply Input
-        if (!IsFlipped() && MatchManagerSplit.bIsMatchStarted)
+        if (!IsFlipped() && MatchManager.bIsMatchStarted)
         {
             ApplyMovementForces();
         }

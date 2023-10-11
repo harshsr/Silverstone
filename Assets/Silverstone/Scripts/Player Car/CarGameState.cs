@@ -15,11 +15,11 @@ public class CarGameState : MonoBehaviour, ICarGameState
 
     [SerializeField] private InputAction ResetCar;
     
-    MatchManagerSplit MatchManager;
+    MatchManager MatchManager;
     
     void Start()
     {
-        MatchManager = GameObject.FindWithTag("MatchManager").GetComponent<MatchManagerSplit>();
+        MatchManager = GameObject.FindWithTag("MatchManager").GetComponent<MatchManager>();
         MaxLaps = MatchManager.GetMaxLaps();
         ResetCar.Enable();
         LastCheckpointInfo.CheckpointIndex = -1;

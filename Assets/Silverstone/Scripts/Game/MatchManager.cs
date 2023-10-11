@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class MatchManagerSplit : MonoBehaviour
+public class MatchManager : MonoBehaviour
 {
     [SerializeField] public int MaxLaps = 3;
     [SerializeField] private int StartTimer = 4;
@@ -31,6 +31,7 @@ public class MatchManagerSplit : MonoBehaviour
     }
     void Start()
     {
+        
         StartTimerText.SetActive(true);
         timer = StartTimer;
         PauseAction.Enable();
@@ -102,6 +103,7 @@ public class MatchManagerSplit : MonoBehaviour
     
     void Pause()
     {
+        Cursor.lockState = CursorLockMode.None;
         PausePanel.SetActive(true);
         foreach (GameObject playerHud in PlayerHuds)
         {
@@ -113,6 +115,7 @@ public class MatchManagerSplit : MonoBehaviour
     public void Resume()
     {
         PausePanel.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
         foreach (GameObject playerHud in PlayerHuds)
         {
             playerHud.SetActive(true);
@@ -125,6 +128,7 @@ public class MatchManagerSplit : MonoBehaviour
         timer = StartTimer;
         StartTimerText.SetActive(true);
         bIsMatchStarted = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
     
     public int GetMaxLaps()

@@ -64,6 +64,10 @@ public class EnemyCarMovement : MonoBehaviour, IEnemyCarMovement
     void Update()
     {
         PerformSuspensionChecks();
+        if (IsFlipped())
+        {
+            gameObject.GetComponent<CarGameState>().ResetToLastCheckpoint();
+        }
         
     }
 
@@ -71,7 +75,7 @@ public class EnemyCarMovement : MonoBehaviour, IEnemyCarMovement
     {
         ApplySuspensionForces();
         AverageNormal = (FrontLeftHit.normal + FrontRightHit.normal + RearLeftHit.normal + RearRightHit.normal) / 4;
-        if (MatchManagerSplit.bIsMatchStarted)
+        if (MatchManager.bIsMatchStarted)
         {
             ApplyMovementForces();
         }
@@ -133,7 +137,10 @@ public class EnemyCarMovement : MonoBehaviour, IEnemyCarMovement
         
         Vector3 ProjectedForward = Vector3.ProjectOnPlane(transform.forward, AverageNormal);
 
-        if (IsGrounded())
+        // normal direction is used to make sure the car is not accelerating when it is going up an almost vertical slope
+        float NormalDirection = Vector3.Dot(Vector3.up, AverageNormal);
+        
+        if (IsGrounded() && Mathf.Abs(NormalDirection) > 0.75f)
         {
             CarRigidbody.AddForceAtPosition(LongitudinalInput * ForwardAcceleration * ProjectedForward, AccelerationPoint.transform.position);
             float SpeedFactor = Mathf.Clamp01(CarRigidbody.velocity.magnitude / 10f);
@@ -172,5 +179,10 @@ public class EnemyCarMovement : MonoBehaviour, IEnemyCarMovement
     public float GetSpeed()
     {
         return CarRigidbody.velocity.magnitude;
+    }
+    
+    private bool IsFlipped()
+    {
+        return Physics.Raycast(transform.position, transform.up, GroundCheckDistance * 2, LayerMask.GetMask("Ground"));
     }
 }

@@ -50,6 +50,6 @@ public class UIManage : MonoBehaviour,IUI
     
     void IUI.LapUp(int lapCount)
     {
-        LapText.text = lapCount.ToString() + "/" + GameObject.FindWithTag("MatchManager").GetComponent<MatchManagerSplit>().GetMaxLaps().ToString();
+        LapText.text = lapCount.ToString() + "/" + GameObject.FindWithTag("MatchManager").GetComponent<MatchManager>().GetMaxLaps().ToString();
     }
 }

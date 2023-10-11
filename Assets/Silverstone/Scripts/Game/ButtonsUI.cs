@@ -20,7 +20,7 @@ public class ButtonsUI : MonoBehaviour
     public void Restart()
     {
         Time.timeScale = 1;
-        GameObject.FindWithTag("MatchManager").GetComponent<MatchManagerSplit>().RestartTimer();
+        GameObject.FindWithTag("MatchManager").GetComponent<MatchManager>().RestartTimer();
         UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
         
     }
@@ -39,7 +39,7 @@ public class ButtonsUI : MonoBehaviour
     public void Resume()
     {
         Time.timeScale = 0;
-        GameObject.FindWithTag("MatchManager").GetComponent<MatchManagerSplit>().Resume();
+        GameObject.FindWithTag("MatchManager").GetComponent<MatchManager>().Resume();
     }
     
     public void SelectLevel()
